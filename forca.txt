@@ -1,0 +1,103 @@
+import random
+
+def escolher_palavra():
+    palavras = ["desenvolvimento", "tecnologia", "programacao", "tendencias", "computador"]
+    return random.choice(palavras)
+def exibir_forca(tentativas):
+    estagios_forca = [
+        """
+         _______
+        |/      |
+        |      
+        |     
+        |       
+        |
+       ===""",
+        """
+         _______
+        |/      |
+        |      (_)
+        |     
+        |       
+        |
+       ===""",
+        """
+         _______
+        |/      |
+        |      (_)
+        |       |
+        |       |
+        |
+       ===""",
+        """
+         _______
+        |/      |
+        |      (_)
+        |      /|
+        |       |
+        |
+       ===""",
+        """
+         _______
+        |/      |
+        |      (_)
+        |      /|\\
+        |       |
+        |
+       ===""",
+        """
+         _______
+        |/      |
+        |      (_)
+        |      /|\\
+        |       |
+        |      /
+       ===""",
+        """
+         _______
+        |/      |
+        |      (_)
+        |      /|\\
+        |       |
+        |      / \\
+       ==="""
+    ]
+    print(estagios_forca[tentativas])
+def jogar():
+    palavra = escolher_palavra()
+    palavra_oculta = ["_" for _ in palavra]
+    letras_tentadas = []
+    tentativas = 0
+    
+    print("Bem-vindo ao Jogo da Forca!")
+    print("Adivinhe a palavra oculta. Ela tem", len(palavra), "letras.")
+    print(" ".join(palavra_oculta))
+    
+    while tentativas < 6:
+        letra = input("Digite uma letra: ").lower()
+        
+        if letra in letras_tentadas:
+            print("Você já tentou essa letra. Tente novamente!")
+            continue
+        
+        letras_tentadas.append(letra)
+        
+        if letra in palavra:
+            print("Letra correta!")
+            for i in range(len(palavra)):
+                if palavra[i] == letra:
+                    palavra_oculta[i] = letra
+        else:
+            print("Letra errada!")
+            tentativas += 1
+        
+        exibir_forca(tentativas)
+        print("Letras tentadas:", letras_tentadas)
+        print(" ".join(palavra_oculta))
+        
+        if "_" not in palavra_oculta:
+            print("Parabéns, você ganhou! A palavra era:", palavra)
+            return
+        
+    print("Você perdeu! A palavra era:", palavra)
+jogar()
